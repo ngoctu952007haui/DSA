@@ -1,29 +1,49 @@
 #include<iostream>
 using namespace std;
 
-int BinarySearch(int x[], int L, int R, int K)
+void NhapMang(int x[], int n)
 {
-	if(L>R)
-		return -1; // khong tim thay phan tu trong day
-	else
+	for(int i=0; i<n; i++)
 	{
-		int M = (L+R) / 2;
-		if(x[M] == K)
-			return M;
-		else if(x[M] > K)
-			return BinarySearch(x,L,M-1,K);
+		cout<<"x["<<i<<"] = ";
+		cin>>x[i];
+	}
+}
+
+int BinarySearch(int x[], int k, int left, int right)
+{
+	if(left>right)
+		return -1;
+	else{
+		int mid = (left + right) / 2;
+		if(x[mid] == k)
+			return mid;
+		else if(x[mid] > k)
+			return BinarySearch(x,k,left, mid-1);
 		else
-			return BinarySearch(x,M+1,R,K);
+			return BinarySearch(x,k,mid+1,right);
 	}
 }
 
 int main()
 {
-	int x[] = {94,84,74,64,54,34,24,14,4};
-	int K = 64;
-	int n = 9;
-	int kq = BinarySearch(x,0,n-1,K);
+	int x[100];
+	int n, k1, k2;
+	do{
+		cout<<"Enter n = ";
+		cin>>n;
+	}while(n<=0);
 	
-	cout<<"Vi tri cua K la: "<<kq<<endl;
+	NhapMang(x,n);
+	cout<<"Enter k1 = ";
+	cin>>k1;
+	int kq1 = BinarySearch(x,k1,0,n-1);
+	cout<<"Vi tri cua phan tu k1 la: "<<kq1<<endl;
+	
+	cout<<"Enter k2 = ";
+	cin>>k2;
+	int kq2 = BinarySearch(x,k2,0,n-1);
+	cout<<"Vi tri cua phan tu k2 la: "<<kq2<<endl;
+
 	return 0;
 }
